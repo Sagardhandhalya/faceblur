@@ -17,8 +17,6 @@ window.addEventListener("load", () => {
       (err) => console.log(err)
     );
   }
-
-//   document.addEventListener("click", (e) => console.warn(e));
   
   video.addEventListener('play' ,drawOnCanvas )
 
@@ -29,7 +27,7 @@ window.addEventListener("load", () => {
     }, 0);
   }
  
-  //   for(let i = ((y-1)*wi+x)*4; i<((y+h)*wi+x+w)*4; i++)
+  // for(let i = ((y-1)*wi+x)*4; i<((y+h)*wi+x+w)*4; i++)
 
   function blurLogic(pixelArray) {
     let pd = pixelArray.data;
@@ -43,17 +41,42 @@ window.addEventListener("load", () => {
       if (b > x && b < x + w && a > y && a < y + h) {
         if (layerNo === 3) continue;
 
-        pd[i] =
-          (pd[i] +
-            (pd[i - 4] || pd[i]) +
-            (pd[i + 4] || pd[i]) +
-            (pd[i - 4 * wi] || pd[i]) +
-            (pd[i + 4 * wi] || pd[i]) +
-            (pd[i - 4 * wi - 4] || pd[i]) +
-            (pd[i - 4 * wi + 4] || pd[i]) +
-            (pd[i + 4 * wi - 4] || pd[i]) +
-            (pd[i + 4 * wi + 4] || pd[i])) /
-          9;
+// 1 1 1 1 1
+// 1 1 1 1 1
+// 1 1 1 1 1
+// 1 1 1 1 1
+// 1 1 1 1 1
+
+        
+        let temp=0;
+        
+        for(let j=-2;j<=2;j++)
+        {
+            for(let k=-2;k<=2;k++)
+            {
+            temp += pd[i + 4*wi*j+4*k] || pd[i]
+        }
+
+    
+    }
+
+ 
+       
+        pd[i] = temp/25;
+          // (pd[i] +
+          //   (pd[i - 4] || pd[i]) +
+          //   (pd[i - 8] || pd[i]) +
+          //   (pd[i + 4] || pd[i]) +
+          //   (pd[i + 8] || pd[i]) +
+          //   (pd[i - 4 * wi] || pd[i]) +
+          //   (pd[i - 8 * wi] || pd[i]) +
+          //   (pd[i + 4 * wi] || pd[i]) +
+          //   (pd[i + 8 * wi] || pd[i]) +
+          //   (pd[i - 4 * wi - 4] || pd[i]) +
+          //   (pd[i - 4 * wi + 4] || pd[i]) +
+          //   (pd[i + 4 * wi - 4] || pd[i]) +
+          //   (pd[i + 4 * wi + 4] || pd[i])) /
+          // 9;
       }
     }
     pixelArray.data = pd;
@@ -85,7 +108,7 @@ window.addEventListener("load", () => {
           canvas.clientWidth,
           canvas.clientHeight
         );
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
           pixelArray = blurLogic(pixelArray);
         }
         
