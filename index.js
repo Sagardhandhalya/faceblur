@@ -63,19 +63,19 @@ window.addEventListener("load", () => {
   async function blur() {
     model
       .estimateFaces(video, false)
-      .then((prediction) => {
-        const predictions = prediction[0];
-        console.log(predictions);
-        const start = predictions.topLeft;
-        const end = predictions.bottomRight;
+      .then((predictions) => {
+        const prediction = predictions[0];
+        console.log(prediction);
+        const start = prediction.topLeft;
+        const end = prediction.bottomRight;
         const size = [end[0] - start[0], end[1] - start[1]];
         let devideFactor = canvas.clientWidth /5;
         console.log(canvas.clientWidth);
         ctx.drawImage(video, 0, 0, 640, 480);
         // ctx.fillRect(start[0], start[1], size[0], size[1]);
         x = start[0];
-        y = start[1];
-        h = size[1];
+        y = start[1]-90;
+        h = size[1]+100;
         w = size[0];
         console.log(x, y, h, w);
 
