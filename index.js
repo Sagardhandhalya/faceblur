@@ -7,7 +7,7 @@ window.addEventListener("load", () => {
     
   async function startVideo() {
     model = await blazeface.load();
-    navigator.getUserMedia(
+    navigator.getMedia(
       { video: true },
       async (stm) => {
         video.srcObject = stm;
